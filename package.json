@@ -4,17 +4,19 @@
   "description": "todo",
   "main": "server.js",
   "bin": "server.js",
-  "pkg": {   
+  "pkg": {
     "scripts": [
-      "require.js"     
+      "require.js"
     ],
-    "assets" : [
+    "assets": [
       "./node_modules/*"
-    ] 
+    ]
   },
-  "author" : "palmerchaun",
-  "license" : "MIT",
+  "author": "palmerchaun",
+  "license": "MIT",
   "dependencies": {
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
     "minecraft-protocol": "^1.45.0"
   }
 }
