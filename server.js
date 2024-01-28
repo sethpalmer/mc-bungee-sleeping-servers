@@ -4,12 +4,9 @@ const jsyaml = require('js-yaml')
 const fs = require('fs');
 
 try {
-  const doc = jsyaml.load(fs.readFileSync('sleeping-server-config.yml', 'utf8'));
-  console.log(doc);
-
-  const serverOpts = doc.servers
-  const bungee = doc.bungee
-
+  const config = jsyaml.load(fs.readFileSync('sleeping-server-config.yml', 'utf8'));
+  const serverOpts = config.servers
+  const bungee = config.bungee
   const cmdArgs = `-Xmx${bungee.memory}M -Xms${bungee.memory}M -jar ${bungee.binary} nogui`.split(' ')
   const bungeeProc = spawn('java', cmdArgs, {
     cwd: bungee.directory
