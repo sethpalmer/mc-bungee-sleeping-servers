@@ -1,0 +1,21 @@
+{
+  "name": "sleepyserver",
+  "version": "1.0",
+  "description": "todo",
+  "main": "server.js",
+  "bin": "server.js",
+  "pkg": {   
+    "scripts": [
+      "require.js"     
+    ],
+    "assets" : [
+      "./node_modules/*"
+    ] 
+  },
+  "author" : "palmerchaun",
+  "license" : "ISC",
+  "dependencies": {
+    "minecraft-protocol": "^1.45.0",
+    "node": "^21.6.1"
+  }
+}
