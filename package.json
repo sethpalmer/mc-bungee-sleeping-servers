@@ -13,7 +13,7 @@
     ] 
   },
   "author" : "palmerchaun",
-  "license" : "ISC",
+  "license" : "MIT",
   "dependencies": {
     "minecraft-protocol": "^1.45.0",
     "node": "^21.6.1"
