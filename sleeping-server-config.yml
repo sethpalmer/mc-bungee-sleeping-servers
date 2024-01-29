@@ -7,7 +7,7 @@ servers:
     directory: D:\Minecraft\survival-server
     binary: paper-1.20.2-318.jar
     memory: 4096
-  - port: 25593,
+  - port: 25593
     directory: D:\Minecraft\squirrel
     binary: paper-1.20.2-318.jar
     memory: 512
