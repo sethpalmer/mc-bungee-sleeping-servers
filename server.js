@@ -7,13 +7,12 @@ try {
   const config = jsyaml.load(fs.readFileSync('sleeping-server-config.yml', 'utf8'));
   const serverOpts = config.servers
   const bungee = config.bungee
-  const cmdArgs = `-Xmx${bungee.memory}M -Xms${bungee.memory}M -jar ${bungee.binary} nogui`.split(' ')
+  const cmdArgs = `-Xmx${bungee.memory}M -Xms${bungee.memory}M -jar ${bungee.binary}`.split(' ')
   const bungeeProc = spawn('java', cmdArgs, {
-    cwd: bungee.directory
+    cwd: bungee.directory,
+    detached: true,
+    studio: 'ignore'
   })
-  bungeeProc.stdout.on('data', function(data) {
-    console.log(data.toString());
-  });
 
   for(var serverOpt in serverOpts){
     initServer(serverOpts[serverOpt])
@@ -33,23 +32,28 @@ function initServer(serverOpt) {
       server.close()
       console.log("closed sleeping server for", serverOpt.directory)
       const cmdArgs = `-Xmx${serverOpt.memory}M -Xms${serverOpt.memory}M -jar ${serverOpt.binary} nogui`.split(' ')
+      console.log(cmdArgs)
     
       console.log("Starting", serverOpt.directory)
       const mcProcess = spawn('java', cmdArgs, {
-        cwd: serverOpt.directory
+        cwd: serverOpt.directory,
+        detached: true,
+        stdio: 'ignore'
       })
 
+      delete server
+
       mcProcess.on("close", (code) => {
-        console.log(code)
+        console.log("Closed with code", code)
       })
 
       mcProcess.on("error", (error) => {
-        console.log(error)
+        console.log("Error!", error)
       })
 
-      mcProcess.on("exit", (code) => {
-        console.log("exited")
-        console.log("starting up sleeping server")
+      mcProcess.on('exit', function (code, signal) {
+        console.log('child process exited with ' +
+                      `code ${code} and signal ${signal}`);
         initServer(serverOpt)
       })
     }
@@ -59,9 +63,5 @@ function initServer(serverOpt) {
 
   server.on('error', function (error) {
     console.log('Error:', error)
-  })
-
-  server.on('listening', function () {
-    console.log(serverOpt.directory, 'listening on port', server.socketServer.address().port)
   })
 }

@@ -10,23 +10,23 @@ servers:
   - port: 25593
     directory: D:\Minecraft\squirrel
     binary: paper-1.20.2-318.jar
-    memory: 512
+    memory: 4096
   - port: 25595
     directory: D:\Minecraft\breezecraft
     binary: paper-1.20.2-318.jar
-    memory: 512
+    memory: 4096
   - port: 25596
     directory: D:\Minecraft\seth-mimi-luke-clarissa
     binary: paper-1.20.2-318.jar
-    memory: 512
+    memory: 4096
   - port: 25597
     directory: D:\Minecraft\cedar-server
     binary: paper-1.20.2-318.jar
-    memory: 512
+    memory: 2048
   - port: 25598
     directory: D:\Minecraft\creative-server
     binary: paper-1.20.2-318.jar
-    memory: 512
+    memory: 1024
 
 bungee:
   directory: D:\Minecraft\bungeecord-server
