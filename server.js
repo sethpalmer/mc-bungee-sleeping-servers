@@ -7,12 +7,15 @@ try {
   const config = jsyaml.load(fs.readFileSync('sleeping-server-config.yml', 'utf8'));
   const serverOpts = config.servers
   const bungee = config.bungee
-  const cmdArgs = `-Xmx${bungee.memory}M -Xms${bungee.memory}M -jar ${bungee.binary}`.split(' ')
-  const bungeeProc = spawn('java', cmdArgs, {
-    cwd: bungee.directory,
-    detached: true,
-    studio: 'ignore'
-  })
+
+  if(typeof(bungee) != "undefined") {
+    const cmdArgs = `-Xmx${bungee.memory}M -Xms512M -jar ${bungee.binary}`.split(' ')
+    const bungeeProc = spawn('java', cmdArgs, {
+      cwd: bungee.directory,
+      detached: true,
+      studio: 'ignore'
+    })
+  }
 
   for(var serverOpt in serverOpts){
     initServer(serverOpts[serverOpt])
@@ -31,7 +34,7 @@ function initServer(serverOpt) {
       client.end('Waking server up. Please try again in a few seconds.')
       server.close()
       console.log("closed sleeping server for", serverOpt.directory)
-      const cmdArgs = `-Xmx${serverOpt.memory}M -Xms${serverOpt.memory}M -jar ${serverOpt.binary} nogui`.split(' ')
+      const cmdArgs = `-Xmx${serverOpt.memory}M -Xms512M -jar ${serverOpt.binary} nogui`.split(' ')
       console.log(cmdArgs)
     
       console.log("Starting", serverOpt.directory)
