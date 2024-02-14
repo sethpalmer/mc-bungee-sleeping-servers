@@ -13,7 +13,7 @@ try {
     const bungeeProc = spawn('java', cmdArgs, {
       cwd: bungee.directory,
       detached: true,
-      studio: 'ignore'
+      stdio: 'ignore'
     })
   }
 
@@ -27,9 +27,9 @@ try {
 function initServer(serverOpt) {
   const options = {
     motd: 'sleeping server',
-    maxPlayers: 5,
+    maxPlayers: serverOpt.maxPlayers,
     port: serverOpt.port,
-    'online-mode': false,
+    'online-mode': serverOpt.online,
     beforeLogin: function(client) {
       client.end('Waking server up. Please try again in a few seconds.')
       server.close()
@@ -40,9 +40,9 @@ function initServer(serverOpt) {
       console.log("Starting", serverOpt.directory)
       const mcProcess = spawn('java', cmdArgs, {
         cwd: serverOpt.directory,
-        detached: true,
-        stdio: 'ignore'
-      })
+        detached: serverOpt.detached,
+        stdio: serverOpt.detached ? 'ignore' : 'inherit'
+      }).on('error', function( err ){ throw err })
 
       delete server
 
