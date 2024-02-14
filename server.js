@@ -43,7 +43,10 @@ function initServer(serverOpt) {
         cwd: serverOpt.directory,
         detached: serverOpt.detached,
         stdio: serverOpt.detached ? 'ignore' : 'inherit'
-      }).on('error', function( err ){ throw err })
+      }).on('error', function( err ){ 
+        console.log(err)
+        throw err
+      })
 
       delete server
 
