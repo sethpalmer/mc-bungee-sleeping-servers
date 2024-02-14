@@ -42,7 +42,8 @@ function initServer(serverOpt) {
       const mcProcess = spawn('java', cmdArgs, {
         cwd: serverOpt.directory,
         detached: serverOpt.detached,
-        stdio: serverOpt.detached ? 'ignore' : 'inherit'
+        stdio: serverOpt.detached ? 'ignore' : 'inherit',
+        shell: true
       }).on('error', function( err ){ 
         console.log(err)
         throw err
