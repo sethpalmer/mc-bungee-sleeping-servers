@@ -38,6 +38,7 @@ function initServer(serverOpt) {
       console.log(cmdArgs)
     
       console.log("Starting", serverOpt.directory)
+      console.log( process.env.PATH );
       const mcProcess = spawn('java', cmdArgs, {
         cwd: serverOpt.directory,
         detached: serverOpt.detached,
