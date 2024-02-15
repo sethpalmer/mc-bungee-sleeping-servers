@@ -69,5 +69,11 @@ function initServer(serverOpt) {
 
   server.on('error', function (error) {
     console.log('Error:', error)
+    server.close()
+  })
+
+  server.on('close', function() {
+    delete server
+    initServer(serverOpt)
   })
 }
