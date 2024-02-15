@@ -69,5 +69,9 @@ function initServer(serverOpt) {
 
   server.on('error', function (error) {
     console.log('Error:', error)
+    console.log('Restarting:', serverOpt.directory)
+    server.close()
+    delete server
+    initServer(serverOpt)
   })
 }
